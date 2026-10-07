@@ -1,0 +1,14 @@
+@startuml TaskStateMachine
+' Конечный автомат статусов задачи (8 переходов)
+skinparam monochrome true
+[*] --> NEW : создать задачу
+NEW --> IN_PROGRESS : a / начать работу
+NEW --> REJECTED : g / отменить задачу
+IN_PROGRESS --> NEW : b / вернуть в бэклог
+IN_PROGRESS --> ON_REVIEW : c / отправить на проверку
+ON_REVIEW --> IN_PROGRESS : d / вернуть на доработку
+ON_REVIEW --> DONE : e / принять работу
+ON_REVIEW --> REJECTED : f / отклонить работу
+REJECTED --> IN_PROGRESS : h / переоткрыть задачу
+DONE --> [*]
+@enduml
