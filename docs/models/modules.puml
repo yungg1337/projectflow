@@ -1,0 +1,15 @@
+@startuml ModuleDependencies
+' Граф зависимостей модулей приложения
+skinparam componentStyle uml2
+[Веб-интерфейс (HTML + JavaScript)] --> [HTTP-сервер]
+[HTTP-сервер] --> [AuthModule]
+[HTTP-сервер] --> [TaskModule]
+[HTTP-сервер] --> [ReportModule]
+[TaskModule] --> [Автомат статусов app/states.py]
+[ReportModule] --> [TaskModule] : выборка задач
+[ReportModule] --> [Выгрузка xlsx и pdf]
+[AuthModule] --> [Работа с базой (app/db.py)]
+[TaskModule] --> [Работа с базой (app/db.py)]
+[ReportModule] --> [Работа с базой (app/db.py)]
+[Работа с базой (app/db.py)] --> [SQLite projectflow.db]
+@enduml
