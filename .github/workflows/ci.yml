@@ -1,0 +1,35 @@
+name: Проверка проекта
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  quality:
+    name: Код, тесты и демонстрация
+    runs-on: ubuntu-latest
+    steps:
+      - name: Получение кода
+        uses: actions/checkout@v4
+
+      - name: Установка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установка библиотеки для PDF
+        run: python -m pip install -r requirements.txt
+
+      - name: Проверка качества кода
+        run: python tools/check.py
+
+      - name: Автоматические тесты
+        run: python -m unittest discover -s tests -t . -v
+
+      - name: Запуск приложения и демонстрационный проход
+        run: |
+          python run.py --port 8000 &
+          sleep 3
+          python tools/demo.py http://127.0.0.1:8000
