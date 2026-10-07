@@ -1,0 +1,78 @@
+@startuml ErModel
+' Модель данных: сущности и связи
+skinparam linetype ortho
+entity users {
+  * id : INTEGER <<PK>>
+  --
+  email : TEXT <<UNIQUE>>
+  password_hash : TEXT
+  full_name : TEXT
+  role : TEXT
+  is_active : INTEGER
+  created_at : TEXT
+}
+entity projects {
+  * id : INTEGER <<PK>>
+  --
+  code : TEXT <<UNIQUE>>
+  name : TEXT
+  description : TEXT
+  owner_id : INTEGER <<FK users>>
+  status : TEXT
+  start_date : TEXT
+  end_date : TEXT
+}
+entity tasks {
+  * id : INTEGER <<PK>>
+  --
+  project_id : INTEGER <<FK projects>>
+  title : TEXT
+  description : TEXT
+  status : TEXT
+  priority : TEXT
+  assignee_id : INTEGER <<FK users>>
+  author_id : INTEGER <<FK users>>
+  due_date : TEXT
+  created_at : TEXT
+  updated_at : TEXT
+}
+entity task_status_history {
+  * id : INTEGER <<PK>>
+  --
+  task_id : INTEGER <<FK tasks>>
+  status_from : TEXT
+  status_to : TEXT
+  changed_by : INTEGER <<FK users>>
+  comment : TEXT
+  changed_at : TEXT
+}
+entity reports {
+  * id : INTEGER <<PK>>
+  --
+  report_type : TEXT
+  project_id : INTEGER <<FK projects>>
+  author_id : INTEGER <<FK users>>
+  period_from : TEXT
+  period_to : TEXT
+  format : TEXT
+  file_name : TEXT
+  rows_count : INTEGER
+  created_at : TEXT
+}
+entity password_resets {
+  * token : TEXT <<PK>>
+  --
+  user_id : INTEGER <<FK users>>
+  expires_at : REAL
+  used : INTEGER
+}
+users ||--o{ projects : owner
+users ||--o{ tasks : assignee
+users ||--o{ tasks : author
+projects ||--o{ tasks : содержит
+tasks ||--o{ task_status_history : история
+users ||--o{ task_status_history : изменил
+users ||--o{ reports : автор
+projects ||--o{ reports : по проекту
+users ||--o{ password_resets : сброс
+@enduml
