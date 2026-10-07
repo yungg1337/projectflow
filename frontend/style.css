@@ -1,0 +1,93 @@
+:root {
+  --main: #1f4e79;
+  --accent: #2e7d32;
+  --light: #f4f7fb;
+  --border: #cfd8e3;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: var(--light);
+  color: #1b2733;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--main);
+  color: #fff;
+}
+
+header h1 { font-size: 20px; margin: 0; }
+
+main { max-width: 1080px; margin: 20px auto; padding: 0 16px; }
+
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.hidden { display: none !important; }
+
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+
+label { display: flex; flex-direction: column; font-size: 13px; gap: 4px; }
+
+input, select, button, textarea {
+  font: inherit;
+  padding: 7px 9px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+button {
+  background: var(--main);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button.link { background: none; color: #fff; text-decoration: underline; padding: 0; }
+
+button.small { padding: 4px 8px; font-size: 12px; margin-right: 4px; }
+
+button:disabled { opacity: .5; cursor: default; }
+
+.tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+
+.tabs button { background: #dbe6f2; color: var(--main); }
+.tabs button.active { background: var(--main); color: #fff; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+
+th, td { border: 1px solid var(--border); padding: 7px 9px; text-align: left; }
+
+th { background: #eaf1f9; }
+
+.badge {
+  background: rgba(255, 255, 255, .2);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  margin: 0 8px;
+}
+
+.status { font-weight: 600; }
+.status-new { color: #1565c0; }
+.status-in_progress { color: var(--accent); }
+.status-on_review { color: #ef6c00; }
+.status-done { color: #455a64; }
+.status-rejected { color: #c62828; }
+.overdue { color: #c62828; font-size: 12px; }
+.message { color: #c62828; min-height: 18px; }
+.hint { font-size: 12px; color: #607d8b; }
+details { margin-top: 14px; }
+summary { cursor: pointer; color: var(--main); }

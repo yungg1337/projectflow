@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ProjectFlow — управление проектами</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>ProjectFlow</h1>
+  <div id="user-box" class="hidden">
+    <span id="user-name"></span>
+    <span id="user-role" class="badge"></span>
+    <button id="logout" class="link">Выйти</button>
+  </div>
+</header>
+
+<main>
+  <section id="auth-screen" class="card">
+    <h2>Вход в систему</h2>
+    <form id="login-form">
+      <label>Электронная почта<input type="email" name="email" value="manager@example.com" required></label>
+      <label>Пароль<input type="password" name="password" value="manager12345" required></label>
+      <button type="submit">Войти</button>
+      <p id="auth-message" class="message"></p>
+    </form>
+    <details>
+      <summary>Регистрация нового пользователя</summary>
+      <form id="register-form">
+        <label>Полное имя<input type="text" name="full_name" required></label>
+        <label>Электронная почта<input type="email" name="email" required></label>
+        <label>Пароль (от 8 символов, буквы и цифры)<input type="password" name="password" required></label>
+        <button type="submit">Зарегистрироваться</button>
+      </form>
+    </details>
+    <p class="hint">Демонстрационные входы: admin@example.com / admin12345,
+      manager@example.com / manager12345, executor@example.com / executor12345</p>
+  </section>
+
+  <section id="workspace" class="hidden">
+    <nav class="tabs">
+      <button data-tab="tasks" class="active">Задачи</button>
+      <button data-tab="projects">Проекты</button>
+      <button data-tab="reports">Отчёты</button>
+    </nav>
+
+    <div id="tab-tasks" class="tab card">
+      <div class="row">
+        <label>Статус
+          <select id="filter-status">
+            <option value="">все</option>
+            <option value="new">новая</option>
+            <option value="in_progress">в работе</option>
+            <option value="on_review">на проверке</option>
+            <option value="done">завершена</option>
+            <option value="rejected">отклонена</option>
+          </select>
+        </label>
+        <label>Проект<select id="filter-project"></select></label>
+        <button id="reload-tasks">Обновить</button>
+      </div>
+      <div id="tasks-list"></div>
+      <details id="task-create-box">
+        <summary>Новая задача</summary>
+        <form id="task-form">
+          <label>Проект<select name="project_id" id="task-project" required></select></label>
+          <label>Название<input type="text" name="title" required></label>
+          <label>Исполнитель<select name="assignee_id" id="task-assignee"></select></label>
+          <label>Приоритет
+            <select name="priority">
+              <option value="normal">обычный</option>
+              <option value="high">высокий</option>
+              <option value="low">низкий</option>
+            </select>
+          </label>
+          <label>Срок<input type="date" name="due_date"></label>
+          <button type="submit">Создать задачу</button>
+        </form>
+      </details>
+    </div>
+
+    <div id="tab-projects" class="tab card hidden">
+      <div id="projects-list"></div>
+      <details>
+        <summary>Новый проект</summary>
+        <form id="project-form">
+          <label>Код<input type="text" name="code" placeholder="PF-2027" required></label>
+          <label>Название<input type="text" name="name" required></label>
+          <label>Описание<input type="text" name="description"></label>
+          <button type="submit">Создать проект</button>
+        </form>
+      </details>
+    </div>
+
+    <div id="tab-reports" class="tab card hidden">
+      <form id="report-form" class="row">
+        <label>Вид отчёта
+          <select name="report_type" id="report-type">
+            <option value="by_project">по проекту</option>
+            <option value="by_assignee">по исполнителю</option>
+            <option value="by_period">за период</option>
+          </select>
+        </label>
+        <label id="report-project-label">Проект<select name="project_id" id="report-project"></select></label>
+        <label id="report-assignee-label" class="hidden">Исполнитель<select name="assignee_id" id="report-assignee"></select></label>
+        <label>Период с<input type="date" name="period_from"></label>
+        <label>по<input type="date" name="period_to"></label>
+        <label>Формат
+          <select name="format">
+            <option value="pdf">PDF</option>
+            <option value="xlsx">Excel</option>
+          </select>
+        </label>
+        <button type="submit">Сформировать</button>
+      </form>
+      <p id="report-message" class="message"></p>
+      <div id="reports-list"></div>
+    </div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
